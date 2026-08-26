@@ -1,0 +1,62 @@
+generated: '2026-08-26'
+method: probed
+source: direct HTTPS probes of each Pyramid Analytics public host
+note: >-
+  Every /.well-known/ path probed on every Pyramid-controlled public host returned 404. No
+  security.txt, no OIDC discovery document, no api-catalog, no ai-plugin, no agent card. Note the
+  www host answers 404 with a 112,994-byte WordPress 404 page and the help host with a 1,245-byte
+  IIS 404 page — both are honest 404 status codes, not soft-200 catch-alls, so this is a real
+  recorded absence rather than an unreadable host. No WellKnown or SecurityTxt pointer is emitted
+  in apis.yml, because nothing was served. The API host itself cannot be probed: Pyramid is
+  installed on the customer's own server, so there is no vendor-operated API host to hold a
+  /.well-known/ surface.
+hit_count: 0
+hosts:
+- host: https://www.pyramidanalytics.com
+  documents:
+  - path: /.well-known/security.txt
+    status: 404
+  - path: /.well-known/openid-configuration
+    status: 404
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+  - path: /.well-known/api-catalog
+    status: 404
+  - path: /.well-known/ai-plugin.json
+    status: 404
+  - path: /.well-known/agent-card.json
+    status: 404
+  - path: /.well-known/agent.json
+    status: 404
+- host: https://help.pyramidanalytics.com
+  documents:
+  - path: /.well-known/security.txt
+    status: 404
+  - path: /.well-known/openid-configuration
+    status: 404
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+  - path: /.well-known/api-catalog
+    status: 404
+  - path: /.well-known/ai-plugin.json
+    status: 404
+  - path: /.well-known/agent-card.json
+    status: 404
+  - path: /.well-known/agent.json
+    status: 404
+- host: https://community.pyramidanalytics.com
+  documents:
+  - path: /.well-known/security.txt
+    status: 404
+  - path: /.well-known/openid-configuration
+    status: 404
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+  - path: /.well-known/api-catalog
+    status: 404
+  - path: /.well-known/ai-plugin.json
+    status: 404
+  - path: /.well-known/agent-card.json
+    status: 404
+  - path: /.well-known/agent.json
+    status: 404

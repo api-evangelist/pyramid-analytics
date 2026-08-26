@@ -1,0 +1,191 @@
+generated: '2026-08-26'
+method: derived
+source: >-
+  Derived from the 234 published /API3/ method reference pages enumerated from
+  https://help.pyramidanalytics.com/sitemap.xml, plus the typed response objects named on those
+  pages (PyramidUserObject, ModifiedItemsResult, MembersSecurity, FtpSecurityType).
+note: >-
+  No OpenAPI document is published, so this graph is derived from method names, their documented
+  input parameters and their documented response types rather than from $ref links. Relationships
+  marked confidence: medium are inferred from the method surface (e.g. addUserToRole implies a
+  many-to-many between User and Role) rather than stated field-by-field in a schema.
+sections:
+- id: authentication
+  path: /API3/authentication
+  operation_count: 10
+- id: access
+  path: /API3/access
+  operation_count: 67
+- id: content
+  path: /API3/content
+  operation_count: 49
+- id: dataSources
+  path: /API3/dataSources
+  operation_count: 75
+- id: tasks
+  path: /API3/tasks
+  operation_count: 16
+- id: analytics
+  path: /API3/analytics
+  operation_count: 8
+- id: themes
+  path: /API3/themes
+  operation_count: 5
+- id: notification
+  path: /API3/notification
+  operation_count: 4
+entities:
+- name: Tenant
+  domain: access
+  description: The top-level isolation boundary. Users, roles, folders, data sources and webhook channels are all scoped to a tenant.
+  key_operations: [createTenant, createTenants, updateTenant, deleteTenants, getAllTenants, getDefaultTenant, getTenantByName, updateTenantSeats, getTenantUnusedLicenseCount]
+- name: User
+  domain: access
+  description: An identity in Pyramid, optionally sourced from an external IDP. Response type PyramidUserObject.
+  key_operations: [createUsers, createUsersFromSearch, updateUsers, deleteUser, deleteUsers, getUser, getMe, getUsersByName, getUserByExternalId, toggleUserStatus, getUserLastLogin, changeUserLicense]
+- name: Role
+  domain: access
+  description: The unit of authorization. Pyramid's security model is role-based across four tiers — application, functional, content and data.
+  key_operations: [createRole, createRoles, updateRole, deleteRole, getAllRoles, getRoleById, findRoles, getRolesByUser, getPublicRoles, updateRoleGroups, updateRoleProfiles]
+- name: Profile
+  domain: access
+  description: A licence/capability profile attached to users — Professional, Analyst, Scientist or Viewer.
+  key_operations: [addProProfile, addAnalystProfile, addScientistProfile, addViewerProfile, deleteProfile, getProfileForUser, getAllProfessionalProfiles]
+- name: ContentItem
+  domain: content
+  description: Any stored artifact — discovery, presentation, publication, dashboard — living in a folder tree.
+  key_operations: [getItem, getContentItemMetaData, findContentItem, renameItem, changeItemDescription, changeItemFolder, copyItems, moveItems, deleteItems, restoreDeletedItems, purgeContentItems, exportContent, importContent]
+- name: Folder
+  domain: content
+  description: Container for content items, partitioned into private, group and public domains per user and tenant.
+  key_operations: [createNewFolder, getFolderItems, getUserPrivateFolder, getUserPrivateRootFolder, getUserPublicFolders, getUserGroupFolders, getTenantPublicOrGroupFolder]
+- name: Tag
+  domain: content
+  description: User-assigned label on content items; the metadata surface of the content system.
+  key_operations: [addTag, deleteTag, addTagToItem, removeTagFromItem, getAllTags, getAllTagsData, getTagData, findItemsByTag, findItemsByTagName]
+- name: Hub
+  domain: content
+  description: A packaged collection of content published as a portal-like surface.
+  key_operations: [findHub, deleteHub, exportHub, importHub]
+- name: DataServer
+  domain: dataSources
+  description: A registered connection to an external database engine.
+  key_operations: [createDataServer, createDataServers, findServerByName, getDataServerDetails, addRolesToServer, deleteRolesFromServer, addXtenderDataServers]
+- name: Database
+  domain: dataSources
+  description: A database exposed by a data server.
+  key_operations: [findDatabaseByName, recognizeDataBase, deleteDataBase, addRolesToDataBase, getRolesByDataBase, addXtenderDatabases]
+- name: Model
+  domain: dataSources
+  description: A semantic data model built over a database — the analytic layer that discoveries query.
+  key_operations: [importModel, exportModel, recognizeModel, updateModelName, getModelStructure, updateModelProcessDate, addRolesToModel, deleteMaterializedModel, updateMaterializedModelProperties]
+- name: MasterFlow
+  domain: dataSources
+  description: An ETL/data-preparation pipeline with source, target and variable nodes.
+  key_operations: [executeMasterFlow, validateMasterFlow, getMasterFlowVariables, getMasterFlowProgressLogs, getMasterFlowProgressUpdate, updateVariableValue, updateSourceNodeConnection, updateTargetNodeConnection]
+- name: DataSecurityRule
+  domain: dataSources
+  description: Row/column/measure-level security overlays on a model. Response type MembersSecurity.
+  key_operations: [addHierarchySecurity, deleteHierarchySecurity, addMeasureSecurity, deleteMeasureSecurity, addMembersSecurity, deleteMembersSecurity, getMemberSecurity]
+- name: Task
+  domain: tasks
+  description: A unit of scheduled or on-demand work, with executions and outputs.
+  key_operations: [getTasks, getTasksIds, getTaskData, getTaskOutputs, getExecutions, reRunTask]
+- name: Schedule
+  domain: tasks
+  description: The recurrence definition that produces task executions; can be suspended and resumed.
+  key_operations: [findSchedule, getSchedulesForUser, runSchedule, runOnDemandSchedules, suspendSchedule, resumeSchedule, deleteSchedule, deleteSchedules, getScheduleExecutionStatus]
+- name: Theme
+  domain: themes
+  description: Visual styling package applied to content and embedded surfaces.
+  key_operations: [applyTheme, exportTheme, importTheme, findThemeByName, getThemeList]
+- name: Notification
+  domain: notification
+  description: Indicator and server-metric feed for the application shell.
+  key_operations: [getNotificationIndicators, getNotificationIndicatorsAdminView, readServersMetrics, readServersMetricsByType]
+relationships:
+- from: Tenant
+  to: User
+  type: has_many
+  via: getUsersByTenant / getUsersByCurrentTenant
+  confidence: high
+- from: Tenant
+  to: Role
+  type: has_many
+  via: getPublicRolesByTenant
+  confidence: high
+- from: Tenant
+  to: DataSource
+  type: has_many
+  via: getDataSourcesByTenant
+  confidence: high
+- from: User
+  to: Role
+  type: has_many
+  via: addUserToRole / getRolesByUser / updateUserRoles (many-to-many)
+  confidence: high
+- from: User
+  to: Profile
+  type: has_one
+  via: getProfileForUser
+  confidence: high
+- from: User
+  to: Folder
+  type: has_many
+  via: getUserPrivateFolder / getUserPublicFolders / getUserGroupFolders
+  confidence: high
+- from: Folder
+  to: ContentItem
+  type: has_many
+  via: getFolderItems; changeItemFolder moves an item between folders
+  confidence: high
+- from: ContentItem
+  to: Role
+  type: has_many
+  via: addRoleToItem / getItemRoles / removeRolesFromItem (content security)
+  confidence: high
+- from: ContentItem
+  to: Tag
+  type: has_many
+  via: addTagToItem / getAllItemTags (many-to-many)
+  confidence: high
+- from: ContentItem
+  to: Model
+  type: belongs_to
+  via: changeDataSource / getItemConnectionString
+  confidence: medium
+- from: DataServer
+  to: Database
+  type: has_many
+  via: findDatabaseByName / recognizeDataBase
+  confidence: high
+- from: Database
+  to: Model
+  type: has_many
+  via: recognizeModel / getRolesByModel
+  confidence: high
+- from: Model
+  to: DataSecurityRule
+  type: has_many
+  via: addHierarchySecurity / addMeasureSecurity / addMembersSecurity
+  confidence: high
+- from: Model
+  to: Role
+  type: has_many
+  via: addRolesToModel / getRolesByModel (data security)
+  confidence: high
+- from: Schedule
+  to: Task
+  type: has_many
+  via: getScheduleExecutionStatus / getExecutions
+  confidence: high
+- from: Task
+  to: TaskOutput
+  type: has_many
+  via: getTaskOutputs / getTaskOutputsForUser
+  confidence: high
+- from: MasterFlow
+  to: Variable
+  type: has_many
+  via: getMasterFlowVariables / updateVariableValue
+  confidence: high

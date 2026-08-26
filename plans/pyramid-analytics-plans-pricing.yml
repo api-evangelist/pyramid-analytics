@@ -1,0 +1,29 @@
+generated: '2026-08-26'
+method: searched
+source: https://www.pyramidanalytics.com/decision-intelligence-platform/get-pricing/
+plan_count: 0
+pricing_published: false
+note: >-
+  Pyramid publishes NO prices. /decision-intelligence-platform/pricing/ 301-redirects to
+  /decision-intelligence-platform/get-pricing/ (HTTP 200), which is a quote-request page: "Unlike
+  'one-size-fits-all' solutions, your investment is based on who's using your platform and how ...
+  No surprise fees. No sudden price hikes." Both packaging options carry a "Get a price quote"
+  call to action rather than a number. There are no published tiers, no currency, no billing
+  period, no included quota and no overage rate, so plan_count is an honest 0 rather than an
+  omission. The two items below are DEPLOYMENT options named on that page, not priced plans.
+deployment_options:
+- name: Pyramid Deployed
+  description: Installed on the customer's own infrastructure — on-premise, private cloud or hybrid.
+  price: null
+- name: Pyramid Managed
+  description: Hosted and operated by Pyramid.
+  price: null
+licensing_signals:
+  note: >-
+    Pricing is seat- and role-shaped rather than call-shaped. The API itself exposes the licence
+    model — access/getLicenseCount, access/getLicenseExpirationDate, access/getLicenseValidationStatus,
+    access/getTenantUnusedLicenseCount, access/updateTenantSeats, access/changeUserLicense — and user
+    profiles are typed Professional, Analyst, Scientist and Viewer. Two capabilities are called out
+    in the documentation as separately licensed or edition-gated: the OData Feed ("requires separate
+    licensing") and channel Webhooks ("available with the Enterprise Edition license only").
+plans: []

@@ -1,0 +1,76 @@
+generated: '2026-08-26'
+method: searched
+source: https://help.pyramidanalytics.com/Content/Root/general/Version%20History%20Overview.htm
+docs:
+- https://help.pyramidanalytics.com/Content/Root/general/Version%20History%20Overview.htm
+- https://community.pyramidanalytics.com/category/whats-new
+scheme: 'YYYY.MM[.SP] — main version, minor release, then point/service-pack release.'
+current_version: 2025.10.2
+current_version_date: '2026-08-10'
+format: dated version-history page in the help portal, with per-release notes linked from each row, mirrored as "What's New" announcements in the community forum
+note: >-
+  Recent window only — the published version history runs back to the 2018 RTM. Each row on the
+  version-history page links to that release's own release notes. Dates below are transcribed
+  verbatim from that page.
+entries:
+- version: 2025.10.2
+  date: '2026-08-10'
+  type: hotfix
+  highlights: Hotfix release for the 2025.10 line.
+- version: '2025.10'
+  date: '2026-05-17'
+  type: minor
+  highlights: Feature pack for Pyramid 2025 "Newton"; the community announcement cites roughly 50 new features plus fixes.
+- version: '2024.06'
+  date: '2026-05-18'
+  type: minor
+  highlights: Feature pack on the 2024 LTS "Fibonacci" line.
+- version: '2025.03'
+  date: '2026-01-23'
+  type: minor
+  highlights: Feature pack for Pyramid 2025 "Newton".
+- version: '2024.05'
+  date: '2026-01-27'
+  type: minor
+  highlights: Feature pack on the 2024 LTS "Fibonacci" line.
+- version: '2025.02'
+  date: '2025-12-16'
+  type: minor
+  highlights: Feature pack for Pyramid 2025 "Newton".
+- version: '2024.04'
+  date: '2025-12-18'
+  type: minor
+  highlights: Feature pack on the 2024 LTS "Fibonacci" line.
+- version: '2025.01'
+  date: '2025-08-06'
+  type: minor
+  highlights: First feature pack for Pyramid 2025 "Newton" — "over 50 new named features together with numerous functional upgrades, unnamed features, and fixes."
+- version: '2024.03'
+  date: '2025-07-08'
+  type: minor
+  highlights: Feature pack on the 2024 LTS "Fibonacci" line.
+- version: 2025 "Newton"
+  date: '2025-02-14'
+  type: major
+  breaking: false
+  highlights: >-
+    Major FVS release — "over 75 new named features", heavily weighted toward embedded analytics
+    (embedded search bar, embedded content formatting, database Xtender) for OEM and multi-tenant
+    solutions. Pyramid states over 55 of the features were specific customer requests from the
+    forum, "nearly 75% of the new or enhanced named features."
+- version: 2024 LTS "Fibonacci"
+  date: '2024-11-25'
+  type: major
+  highlights: Long Term Support release on the 2023 code base.
+- version: '2023.10'
+  date: '2023-12-07'
+  type: minor
+  breaking: false
+  highlights: >-
+    The release that introduced REST API version 3.0 — a different REST implementation using an
+    HTTP "paToken" header instead of an in-payload token, plus the first client SDK libraries
+    (Java, C#, JavaScript/TypeScript, Python, PHP). API 2.0 was deprecated at this point.
+- version: 2023 "Archimedes"
+  date: '2023-06-12'
+  type: major
+  highlights: Major FVS release.

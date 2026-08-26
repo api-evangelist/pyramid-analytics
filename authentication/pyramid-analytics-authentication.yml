@@ -1,0 +1,81 @@
+generated: '2026-08-26'
+method: searched
+source: https://help.pyramidanalytics.com/Content/Root/developer/reference/APIs/REST%20API/Using%20REST.htm
+docs:
+- https://help.pyramidanalytics.com/Content/Root/developer/reference/APIs/REST%20API/Authentication%20APIs.htm
+- https://help.pyramidanalytics.com/Content/Root/developer/reference/APIs/REST%20API/Using%20REST.htm
+- https://help.pyramidanalytics.com/Content/Root/AdminClient/security/authentication/Authentication.htm
+note: >-
+  Derived from the published documentation only — Pyramid publishes no OpenAPI document at a public
+  URL (the Swagger definition is generated inside each customer's own installation), so the scheme
+  below is read from the reference pages and the curl/Java/C#/Python code snippets Pyramid prints
+  on every API 3.0 method page.
+security_schemes:
+- id: paToken
+  type: apiKey
+  in: header
+  name: paToken
+  description: >-
+    API 3.0 carries the security token in an HTTP request header named "paToken". The token is not
+    a static key: it is minted by one of the /API3/authentication/* methods from a username and
+    password (or an SSO assertion) and returned as a base64 string. Versions 1 and 2 (both
+    deprecated) instead embedded the token in the JSON request payload rather than a header.
+  observed_in: 'curl -X POST -H "paToken: [[apiKey]]" "http://Your.Server.URL/API3/access/getMe"'
+authentication_flows:
+- id: api-login
+  name: API Login
+  description: >-
+    An administrative account posts credentials to /API3/authentication/authenticateUser; the
+    response body is the token string, which is then sent as the paToken header on every subsequent
+    call. Pyramid states explicitly: "All REST API calls are limited to administrative users only."
+  methods:
+  - /API3/authentication/authenticateUser
+  - /API3/authentication/authenticateUserWindows
+  - /API3/authentication/authenticateUserSAML
+  - /API3/authentication/authenticateUserOPENID
+- id: client-login
+  name: Client Login
+  description: >-
+    The same authentication call, but the resulting token is written into a browser cookie
+    (PyramidAuth) on the Pyramid domain, which skips the interactive login screen.
+- id: client-login-by-admin-token
+  name: Client Login by Admin Token
+  description: >-
+    Two-phase impersonation for when the end user's password is unknown — an admin authenticates
+    first, then /API3/authentication/authenticateUserByToken exchanges the admin token plus the
+    target username for a user token.
+  methods:
+  - /API3/authentication/authenticateUserByToken
+- id: embed-login
+  name: Embed Login
+  description: >-
+    Issues a token designed to operate from a web domain that is NOT the Pyramid domain, for
+    embedding Pyramid content in a third-party application.
+  methods:
+  - /API3/authentication/authenticateUserEmbed
+  - /API3/authentication/authenticateUserEmbedByToken
+  - /API3/authentication/authenticateUserEmbedWindows
+  - /API3/authentication/authenticateUserEmbedSAML
+  - /API3/authentication/authenticateUserEmbedOPENID
+identity_providers:
+- SAML 2.0 (generic, plus documented setups for Okta, Google, AWS, Azure AD)
+- OpenID Connect (generic, plus Google OpenID)
+- Windows Authentication / Active Directory
+- LDAP / LDAPS
+- Multi-factor authentication (product setting)
+provisioning:
+  supported: true
+  mechanism: IDP user search and auto-provisioning (Active Directory, Azure, Google, Ping, Okta)
+  scim: false
+  note: >-
+    Pyramid documents user search and auto-provisioning against the IDP through its own access APIs
+    (searchExternalUsers, searchExternalGroups, createUsersFromSearch, updateUsersFromSearch). No
+    SCIM 2.0 endpoint or urn:ietf:params:scim schema URN appears anywhere in the published
+    documentation set.
+  source: https://help.pyramidanalytics.com/Content/Root/AdminClient/security/authentication/provisioning/User%20Provisioning%20from%20IDPs.htm
+oauth2:
+  supported: false
+  note: >-
+    There is no OAuth 2.0 authorization-code flow and no scope surface on the Pyramid REST API —
+    authorization is role-based inside the product, not scope-based on the token. scopes/ is
+    therefore deliberately not emitted rather than being filled with an empty artifact.

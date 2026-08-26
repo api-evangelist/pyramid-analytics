@@ -1,0 +1,98 @@
+generated: '2026-08-26'
+method: derived
+status: candidate
+source: >-
+  Derived from the 234 published /API3/ method reference pages enumerated from
+  https://help.pyramidanalytics.com/sitemap.xml
+note: >-
+  Pyramid Analytics publishes NO MCP server. Searched the vendor site, the help portal, the
+  community forum and the public GitHub organization (github.com/Pyramid-Analytics has exactly one
+  public repository, aws-cloudformation, last pushed 2023-05-30) and found no hosted endpoint, no
+  npx/pip package and no mention of the Model Context Protocol. The tools below are a CANDIDATE set
+  this pipeline derived from Pyramid's own documented method surface — they are a proposal, not a
+  product, and no `MCPServer` pointer is wired into apis.yml because emitting one would credit
+  Pyramid with an agent surface it does not ship.
+deployment:
+  mode: none
+  endpoint: null
+  install: null
+  package: null
+  auth: api-key
+  verified: derived
+  note: >-
+    auth is recorded as api-key because that is what any such server would have to carry — the
+    paToken header minted by /API3/authentication/authenticateUser. Note also that Pyramid restricts
+    ALL REST API calls to administrative users, which means a naive MCP wrapper over this API would
+    hand an agent admin-level authority over content, users, tenants and data sources. That is a
+    design constraint any implementer has to solve before shipping, not an afterthought.
+candidate_tools:
+- name: pyramid_get_me
+  description: Return the profile of the user the token belongs to.
+  rest: /API3/access/getMe
+  consequence: read
+- name: pyramid_find_content_item
+  description: Find a content item by name or criteria.
+  rest: /API3/content/findContentItem
+  consequence: read
+- name: pyramid_get_folder_items
+  description: List the content items in a folder.
+  rest: /API3/content/getFolderItems
+  consequence: read
+- name: pyramid_find_items_by_tag
+  description: Find content items carrying a given tag.
+  rest: /API3/content/findItemsByTagName
+  consequence: read
+- name: pyramid_get_recent_items
+  description: List the current user's recently used content.
+  rest: /API3/content/getRecentItems
+  consequence: read
+- name: pyramid_extract_query_result
+  description: Execute a saved discovery's query and return its result set.
+  rest: /API3/analytics/extractQueryResult
+  consequence: read
+- name: pyramid_extract_nlp_query_result
+  description: Execute a natural-language query against a model and return the result set.
+  rest: /API3/analytics/extractNlpQueryResult
+  consequence: read
+- name: pyramid_get_parameter_elements
+  description: List the members of a slicer/parameter, for building a filtered query.
+  rest: /API3/analytics/getParameterElements
+  consequence: read
+- name: pyramid_get_model_structure
+  description: Return the structure of a semantic data model — the schema an agent needs before querying it.
+  rest: /API3/dataSources/getModelStructure
+  consequence: read
+- name: pyramid_get_user_data_catalog
+  description: Return the data catalog visible to the calling user.
+  rest: /API3/dataSources/getUserDataCatalog
+  consequence: read
+- name: pyramid_get_tasks
+  description: List scheduled and on-demand tasks.
+  rest: /API3/tasks/getTasks
+  consequence: read
+- name: pyramid_get_schedule_execution_status
+  description: Report the execution status of a schedule.
+  rest: /API3/tasks/getScheduleExecutionStatus
+  consequence: read
+- name: pyramid_run_schedule
+  description: Trigger a schedule to run now.
+  rest: /API3/tasks/runSchedule
+  consequence: write
+- name: pyramid_execute_master_flow
+  description: Execute a data-preparation master flow.
+  rest: /API3/dataSources/executeMasterFlow
+  consequence: write
+  note: Should be paired with /API3/dataSources/validateMasterFlow as a rehearsal step.
+- name: pyramid_add_tag_to_item
+  description: Tag a content item.
+  rest: /API3/content/addTagToItem
+  consequence: write
+  reversal: /API3/content/removeTagFromItem
+excluded_from_candidates:
+  reason: >-
+    The access/* section (67 methods creating, deleting and re-licensing users, roles and tenants)
+    and the destructive content/dataSources methods (deleteItems, purgeContentItems, deleteUser,
+    deleteTenants, deleteDataBase, deleteMaterializedModel) are deliberately left out of this
+    candidate set. purgeContentItems in particular is irreversible by Pyramid's own documentation.
+  sections: [access]
+  operations: [content/deleteItems, content/purgeContentItems, dataSources/deleteDataBase, dataSources/deleteMaterializedModel]

@@ -1,0 +1,92 @@
+generated: '2026-08-26'
+method: searched
+source: https://help.pyramidanalytics.com/Content/Root/Guides/general/Release%20Framework.htm
+docs:
+- https://help.pyramidanalytics.com/Content/Root/Guides/general/Release%20Framework.htm
+- https://help.pyramidanalytics.com/Content/Root/general/Version%20History%20Overview.htm
+- https://help.pyramidanalytics.com/Content/Root/developer/reference/APIs/REST%20API/APIs%20and%20SDKs.htm
+versioning:
+  product_scheme: 'YYYY.MM.SP — "Pyramid''s main versions are marked with the first 4 digits before the period. Minor releases are marked with the first digit after the period. Point or service pack releases are marked with the second digit after the period." Example: 2025.00.132.'
+  api_scheme: Major API generations numbered 1.0, 2.0 and 3.0, exposed as a path segment (/API1/, /API2/, /API3/).
+  current_api_version: '3.0'
+  current_product_version: 2025.10 ("Newton")
+  api_version_introduced: Release 2023.10
+  release_tracks:
+  - id: LTS
+    name: Long Term Support
+    cadence: Released every EVEN year, in Q4.
+    policy: Supported 2.5 years. No new features except certain data connectors. Key bug fixes for the first 9 months; critical security updates for a further 24 months.
+  - id: FVS
+    name: Feature Version Support
+    cadence: Released every ODD year, in Q1.
+    policy: New features added for 15 months. All bug fixes and security updates for the first 21 months; key bug fixes for a further 9 months.
+deprecation:
+  policy_published: true
+  policy_url: https://help.pyramidanalytics.com/Content/Root/Guides/general/Release%20Framework.htm
+  sunset_header: false
+  deprecation_header: false
+  note: >-
+    Pyramid publishes a dated end-of-support table per product version — the strongest form of
+    deprecation signal in this profile — plus explicit API-generation deprecations. It does NOT
+    emit RFC 8594 Sunset/Deprecation HTTP response headers; deprecation is communicated through
+    the support matrix and the reference documentation, not at runtime.
+  deprecated_api_versions:
+  - version: '1.0'
+    status: deprecated
+    scope: Up to release 2018.04. "covers core functionality - but has been deprecated."
+  - version: '2.0'
+    status: deprecated
+    scope: From release 2018.05. Marked deprecated on the Using REST page; superseded by 3.0 from 2023.10.
+  support_matrix:
+  - version: 2027 "Cantor"
+    release: Q1 2027
+    end_of_standard_support: Q3 2028
+    end_of_extended_support: Q2 2029
+    state: not-yet-released
+  - version: 2026 LTS "Pythagoras"
+    release: Q4 2026
+    end_of_standard_support: Q2 2027
+    end_of_extended_support: Q1 2029
+    state: not-yet-released
+  - version: 2025 "Newton"
+    release: Q1 2025
+    end_of_standard_support: Q3 2026
+    end_of_extended_support: Q2 2027
+    state: supported
+  - version: 2024 LTS "Fibonacci"
+    release: Q4 2024
+    end_of_standard_support: Q3 2025
+    end_of_extended_support: Q1 2027
+    state: out-of-standard-support
+  - version: 2023 "Archimedes"
+    release: Q2 2023
+    end_of_standard_support: Q4 2024
+    end_of_extended_support: Q2 2025
+    state: out-of-extended-support
+  - version: 2020 LTS
+    release: Q3 2019
+    end_of_standard_support: Q4 2023
+    end_of_extended_support: Q1 2025
+    state: out-of-extended-support
+  - version: 2018 LTS
+    release: Q4 2017
+    end_of_standard_support: Q2 2020
+    end_of_extended_support: Q4 2020
+    state: out-of-extended-support
+status_page:
+  published: false
+  note: >-
+    No status page found. status.pyramidanalytics.com, trust.pyramidanalytics.com and
+    security.pyramidanalytics.com all fail to resolve (curl exit 6 / HTTP 000), and no
+    statuspage.io, status.io or Instatus tenant is linked from the site or the help portal. This is
+    consistent with the deployment model — Pyramid runs inside the customer's own tenancy, so
+    there is no single shared production surface whose uptime a vendor status page would describe.
+  probes:
+  - url: https://status.pyramidanalytics.com/
+    status: '000 (DNS does not resolve)'
+  - url: https://trust.pyramidanalytics.com/
+    status: '000 (DNS does not resolve)'
+sla:
+  published: false
+  note: Support tiers are described at https://www.pyramidanalytics.com/company/support/ but no numeric uptime SLA is published publicly.
+deprecated_operations: []

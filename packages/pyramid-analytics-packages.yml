@@ -1,0 +1,92 @@
+generated: '2026-08-26'
+method: searched
+source: https://help.pyramidanalytics.com/Content/Root/developer/reference/APIs/REST%20API/Using%20SDKs.htm
+note: >-
+  Pyramid ships first-party, Swagger-generated client SDKs in five languages as of API version 3
+  (from release 2023.10), but its own documentation states plainly: "All SDK libraries are NOT
+  currently deployed to public repositories. These will be added in the future." The libraries are
+  downloaded from the authenticated customer portal (https://customers.pyramidanalytics.com/) and
+  then installed from a LOCAL registry the customer stands up themselves — a local NuGet server,
+  Verdaccio/Sinopia for npm, a local PyPI, Satis/Toran Proxy for Composer, or a manually added JAR.
+  Because nothing is published publicly there is no registry metadata endpoint to read, so every
+  entry below records version: null and published: null — checked, nothing to record, not "not
+  checked". The Java code samples in the reference confirm the package namespace is
+  com.pyramidanalytics (com.pyramidanalytics.api.AccessServiceApi, .auth, .model), which is what
+  was probed on Maven Central.
+registry_probes:
+- registry: maven-central
+  query: com.pyramidanalytics
+  url: https://repo1.maven.org/maven2/com/pyramidanalytics/
+  status: 404
+  result: absent
+- registry: maven-central
+  query: pyramidanalytics (full-text)
+  url: https://search.maven.org/solrsearch/select?q=pyramidanalytics
+  status: 200
+  result: numFound 0
+- registry: npm
+  query: pyramidanalytics
+  url: https://registry.npmjs.org/pyramidanalytics
+  status: 404
+  result: absent
+- registry: pypi
+  query: pyramidanalytics
+  url: https://pypi.org/pypi/pyramidanalytics/json
+  status: 404
+  result: absent
+- registry: nuget
+  query: pyramidanalytics
+  url: https://azuresearch-usnc.nuget.org/query?q=pyramidanalytics
+  status: 200
+  result: totalHits 0
+- registry: packagist
+  query: pyramidanalytics
+  url: https://packagist.org/search.json?q=pyramidanalytics
+  status: 200
+  result: total 0
+packages:
+- language: java
+  registry: customer-portal
+  name: com.pyramidanalytics (Java SDK JAR)
+  url: https://customers.pyramidanalytics.com/
+  install: Download the JAR from the customer portal, then add it to the project build path or a local Maven repository.
+  official: true
+  version: null
+  published: null
+  note: Not on Maven Central; com/pyramidanalytics returns 404 on repo1.maven.org.
+- language: csharp
+  registry: customer-portal
+  name: Pyramid C# SDK
+  url: https://customers.pyramidanalytics.com/
+  install: Install via NuGet Package Manager pointed at a local NuGet server, or reference the DLL directly.
+  official: true
+  version: null
+  published: null
+  note: Not on nuget.org; the NuGet search API returns 0 hits for "pyramidanalytics".
+- language: javascript
+  registry: customer-portal
+  name: Pyramid JavaScript / TypeScript SDK
+  url: https://customers.pyramidanalytics.com/
+  install: Install with npm referencing a local registry (Verdaccio/Sinopia) as the source, or include the script manually.
+  official: true
+  version: null
+  published: null
+  note: Not on npm; registry.npmjs.org/pyramidanalytics returns 404.
+- language: python
+  registry: customer-portal
+  name: Pyramid Python SDK
+  url: https://customers.pyramidanalytics.com/
+  install: Install with pip from a local PyPI repository, or set up the package manually.
+  official: true
+  version: null
+  published: null
+  note: Not on PyPI; pypi.org/pypi/pyramidanalytics/json returns 404. (pypi.org/project/pyramid_analytics/ is an unrelated Pyramid *web framework* add-on by a third party — not this company.)
+- language: php
+  registry: customer-portal
+  name: Pyramid PHP SDK
+  url: https://customers.pyramidanalytics.com/
+  install: Install with Composer from a local Composer repository (Satis/Toran Proxy), or include manually.
+  official: true
+  version: null
+  published: null
+  note: Not on Packagist; packagist.org search returns 0 results.

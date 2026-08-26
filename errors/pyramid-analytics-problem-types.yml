@@ -1,0 +1,63 @@
+generated: '2026-08-26'
+method: searched
+source: https://help.pyramidanalytics.com/Content/Root/developer/reference/APIs/REST%20API/HTTP%20Status%20Codes.htm
+format: http-status
+rfc9457: false
+note: >-
+  Pyramid does not publish an RFC 9457 problem+json catalogue or a numbered error-code registry.
+  What it publishes is a statement that "API calls made with Pyramid's REST API library will
+  respond with a status code that conforms to standard HTTP status codes", followed by the full
+  IANA status-code list with the relevant ones highlighted. The error CONTENT model is described
+  separately on the Using REST page and is captured below. Because the provider publishes no
+  per-error taxonomy, this artifact records the envelope and the status semantics it does publish
+  and does not invent problem types.
+envelope:
+  success_shape: >-
+    In most cases a successful request returns the expected outcome directly — query results, a
+    modified ID, or a typed object such as PyramidUserObject.
+  failure_shape: >-
+    "an error message is returned as a textual response for failed requests. The determination of a
+    request's success relies on the corresponding HTTP response code."
+  partial_success_shape: >-
+    "For backward compatibility, certain functions yield an object indicating the operation's
+    success, which might be partial (for example, some roles were created while others failed)."
+    The documented type for this is ModifiedItemsResult — "Generic API response object with success
+    or failure flag and related messages."
+  content_type: text/plain or application/json (both are listed in the Accept header of every published curl snippet)
+problem_types:
+- status: 200
+  title: OK
+  meaning: The documented success code for every API 3.0 method. Pyramid's reference pages state a "Successful Result Code" of 200 on each method page.
+- status: 400
+  title: Bad Request
+  meaning: Malformed JSON body or invalid parameter object. Highlighted by Pyramid as one of the relevant codes.
+- status: 401
+  title: Unauthorized
+  meaning: Missing, expired or invalid paToken header. Highlighted by Pyramid as one of the relevant codes.
+- status: 403
+  title: Forbidden
+  meaning: >-
+    The authenticated principal is not permitted the operation. Note that Pyramid limits ALL REST
+    API calls to administrative users, and many individual methods are further restricted by the
+    "Usage by" role list printed on each method page (e.g. restoreDeletedItems is Enterprise Admin
+    only).
+- status: 404
+  title: Not Found
+  meaning: Unknown method path or missing item ID.
+- status: 405
+  title: Method Not Allowed
+  meaning: >-
+    Pyramid's API is POST-only — every method page states "REST APIs via POST actions only" — so a
+    GET against an API 3.0 method path is not a supported call.
+- status: 429
+  title: Too Many Requests
+  meaning: >-
+    Listed in Pyramid's published status-code table. Pyramid documents no rate limits, quotas or
+    RateLimit-* response headers anywhere in its reference, so the runtime conditions that produce
+    this code are not stated.
+- status: 500
+  title: Internal Server Error
+  meaning: Server-side failure on the customer's own Pyramid installation.
+- status: 503
+  title: Service Unavailable
+  meaning: The customer's Pyramid installation is not accepting requests.

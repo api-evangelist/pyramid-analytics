@@ -1,0 +1,51 @@
+generated: '2026-08-26'
+method: searched
+source: https://help.pyramidanalytics.com/Content/Root/AdminClient/content/Webhooks.htm
+docs:
+- https://help.pyramidanalytics.com/Content/Root/AdminClient/content/Webhooks.htm
+- https://help.pyramidanalytics.com/Content/Root/MainClient/appShell/appTab/common%20interface/ContentDistribution/WebhookDistributiontoSlack.htm
+asyncapi_spec_published: false
+note: >-
+  Pyramid publishes no AsyncAPI document and no event-catalog specification. It DOES ship an
+  outbound webhook surface, so this artifact captures the webhook catalog rather than fabricating a
+  spec. The shape is important and unusual: Pyramid's webhooks are DISTRIBUTION channels, not
+  resource-change events. An admin (or, where the tenant permits it, an end user) registers a
+  channel URL, and Pyramid posts scheduled publications, alerts and subscriptions to it when a
+  schedule fires. There is no subscribe-to-object-changed model, no event-type registry, and no
+  documented payload schema or signature-verification scheme. The feature is Enterprise Edition
+  only.
+surface:
+  direction: outbound
+  trigger: a Pyramid schedule firing — a scheduled publication, an alert, or a subscription
+  registration: >-
+    Admin console > Webhooks page: create, edit and delete channel webhooks, assign a channel to a
+    tenant, and set role security on the channel. Non-admins may add a private channel from a
+    content item's schedule when their tenant allows it; such a channel is visible only to its
+    creator and cannot be shared.
+  edition: Enterprise Edition license only
+  audit: Each channel carries an Audit Trail viewable from the Webhooks listing.
+channel_types:
+- id: teams
+  name: Microsoft Teams
+  description: Post scheduled content to a Teams channel webhook URL.
+- id: slack
+  name: Slack
+  description: Post scheduled content to a Slack channel webhook URL.
+- id: general
+  name: General destination
+  description: An arbitrary URL destination.
+channel_fields:
+- name
+- type
+- url
+- tenant
+- role security
+gaps:
+  payload_schema: not published
+  event_types: not published
+  signature_verification: not published
+  retry_policy: not published
+  note: >-
+    An integrator cannot determine from the public documentation what body Pyramid posts, how to
+    verify it came from Pyramid, or what happens on a failed delivery. This is the single largest
+    documentation gap on Pyramid's event surface.

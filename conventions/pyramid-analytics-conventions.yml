@@ -1,0 +1,151 @@
+generated: '2026-08-26'
+method: searched
+source: https://help.pyramidanalytics.com/Content/Root/developer/reference/APIs/REST%20API/Using%20REST.htm
+docs:
+- https://help.pyramidanalytics.com/Content/Root/developer/reference/APIs/REST%20API/Using%20REST.htm
+- https://help.pyramidanalytics.com/Content/Root/developer/reference/APIs/REST%20API/APIs%20and%20SDKs.htm
+- https://help.pyramidanalytics.com/Content/Root/developer/reference/APIs/REST%20API/HTTP%20Status%20Codes.htm
+interface_style:
+  transport: HTTPS
+  http_methods: 'POST only. Every published method page states: "Usage: REST API and Client SDK libraries. REST APIs via POST actions only."'
+  url_shape: /API3/<section>/<methodName> — the method NAME drives the URL, not a resource noun plus a verb.
+  rationale: >-
+    Pyramid states the design choice explicitly. Classic GET-template REST "is inherently weak when
+    there are multiple method parameters ... and if the parameter objects are richer with multiple
+    (nested) property options", and the auth token would have to travel by cookie or header. So
+    Pyramid posts a JSON object per call and calls it a "direct method" approach rather than a
+    verb-per-resource one. This is an RPC-over-HTTP shape, not a resource-oriented REST shape, and
+    an agent should treat it as such.
+  spec_standard: 'Swagger / OpenAPI 2.0 — "The REST APIs are built using the Swagger OpenAPI standard", generated per installation. No spec is published at a public URL.'
+  base_url: https://{pyramid-server}/API3/
+  base_url_note: >-
+    Templated on purpose. Pyramid is deployed onto the customer's own infrastructure ("Pyramid
+    Deployed") or hosted per-tenant by Pyramid ("Pyramid Managed"), so the host is the customer's
+    server. The published examples use http://mysite.com/api3/ and http://Your.Server.URL/API3/ as
+    the placeholder. There is no vendor-operated api.pyramidanalytics.com (DNS does not resolve).
+auth:
+  style: api-key-in-header
+  header: paToken
+  token_origin: minted by /API3/authentication/* from credentials or an SSO assertion; returned as a base64 string
+  restriction: 'Pyramid states: "All REST API calls are limited to administrative users only."'
+  legacy: API 1.0 and 2.0 carried the token inside the JSON request payload instead of a header.
+  see: authentication/pyramid-analytics-authentication.yml
+idempotency:
+  supported: false
+  header: null
+  grade: na
+  note: >-
+    No Idempotency-Key header, no request-replay/dedup key, and no idempotency semantics are
+    documented anywhere in Pyramid's REST reference. Because every call is a POST — including the
+    read-only ones such as access/getMe and content/getItem — the HTTP method itself carries no
+    safety signal either, so an agent cannot infer which calls are safe to retry from the verb. The
+    closest thing Pyramid publishes is the ModifiedItemsResult envelope, which reports PARTIAL
+    success on bulk operations ("some roles were created while others failed") — which is the
+    opposite of an idempotency guarantee: it tells the caller a retry may re-apply the part that
+    already succeeded. Recorded as unsupported rather than na because the API has a large write
+    surface that would benefit from it.
+pagination:
+  style: none-documented
+  note: >-
+    No cursor, offset, page-size or limit parameter appears in the published reference. Collection
+    methods (access/getAllRoles, access/getAllTenants, content/getFolderItems, tasks/getTasks) are
+    documented as returning the full typed array. There is a separate product-level "Query Limits"
+    concept that caps rows returned by an analytics query, but it is a data-model setting, not an
+    API pagination protocol.
+field_expansion:
+  supported: false
+metadata:
+  supported: partial
+  note: Content items carry user-assigned tags (content/addTag, content/addTagToItem, content/getAllTagsData) and descriptions (content/changeItemDescription), which serve as the metadata surface.
+request_id_tracing:
+  supported: false
+  note: No X-Request-Id / correlation-id header is documented. Task and schedule executions carry their own IDs (tasks/getExecutions, tasks/getScheduleExecutionStatus) which are the closest traceable handles.
+versioning:
+  in_url: true
+  scheme: /API1/, /API2/, /API3/ path prefix
+  see: lifecycle/pyramid-analytics-lifecycle.yml
+error_envelope:
+  see: errors/pyramid-analytics-problem-types.yml
+  shape: >-
+    Success returns the typed object directly; failure returns a plain-text error message and the
+    outcome is determined from the HTTP status code. Bulk/partial operations return
+    ModifiedItemsResult with a success-or-failure flag and related messages.
+rate_limit_signaling:
+  supported: false
+  see: rate-limits/pyramid-analytics-rate-limits.yml
+dry_run_mode:
+  supported: partial
+  grade: documented
+  note: >-
+    There is no generic dry-run/preview flag. Two documented validation-only operations exist and
+    are the nearest equivalent: dataSources/validateMasterFlow validates a data flow without
+    running it, and access/getLicenseValidationStatus checks license state before a seat-consuming
+    write. Everything else executes on call.
+reversibility:
+  grade: documented
+  credit: 0.4
+  note: >-
+    Pyramid ships a real reversal path for its most destructive operation — content deletion is a
+    SOFT delete with an explicit restore method — but publishes NO retention window for it, so this
+    grades `documented` rather than `verified`. No window is asserted here because the docs state
+    none, and inventing one on a delete-recovery path is exactly the error that costs a user real
+    data.
+  write_surface: true
+  operations:
+  - action: delete content items
+    operation: /API3/content/deleteItems
+    reversal: /API3/content/restoreDeletedItems
+    window: null
+    window_documented: false
+    docs: https://help.pyramidanalytics.com/Content/Root/developer/reference/APIs/REST%20API/API3/content/restoreDeletedItems.htm
+    note: >-
+      Pyramid states: "Items that have not been 'purged' or soft deleted can be restored. Admins can
+      restore soft-deleted items from the main content manager tools or via this API. Purged items
+      can never be restored." No time limit on the soft-deleted state is published. Restore is
+      Enterprise Admin only.
+  - action: purge content items
+    operation: /API3/content/purgeContentItems
+    reversal: null
+    window: null
+    window_documented: false
+    note: IRREVERSIBLE by the provider's own words — "Purged items can never be restored." An agent must treat purge as terminal.
+  - action: suspend a schedule
+    operation: /API3/tasks/suspendSchedule
+    reversal: /API3/tasks/resumeSchedule
+    window: null
+    window_documented: false
+    note: Symmetric pause/resume pair; suspension is a state, not a destruction, so it is reversible for as long as the schedule exists.
+  - action: pause a data source
+    operation: /API3/dataSources/togglePauseDatasource
+    reversal: /API3/dataSources/togglePauseDatasource
+    window: null
+    window_documented: false
+    note: Toggle — calling it again reverses it.
+  - action: disable a user
+    operation: /API3/access/toggleUserStatus
+    reversal: /API3/access/toggleUserStatus
+    window: null
+    window_documented: false
+    note: Toggle.
+  - action: add a role to an item
+    operation: /API3/content/addRoleToItem
+    reversal: /API3/content/removeRolesFromItem
+    window: null
+    window_documented: false
+  - action: tag an item
+    operation: /API3/content/addTagToItem
+    reversal: /API3/content/removeTagFromItem
+    window: null
+    window_documented: false
+  - action: favorite an item
+    operation: /API3/content/addItemsToFavorites
+    reversal: /API3/content/removeItemsFromFavorites
+    window: null
+    window_documented: false
+  irreversible:
+  - /API3/content/purgeContentItems
+  - /API3/access/deleteUser
+  - /API3/access/deleteUsers
+  - /API3/access/deleteTenants
+  - /API3/dataSources/deleteDataBase
+  - /API3/dataSources/deleteMaterializedModel

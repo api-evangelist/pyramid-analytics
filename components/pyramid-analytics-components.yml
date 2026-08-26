@@ -1,0 +1,54 @@
+generated: '2026-08-26'
+method: searched
+source: https://help.pyramidanalytics.com/Content/Root/developer/reference/Extensibility/Embedding/General%20Embed/EmbedAPI_v1_Overview.htm
+docs:
+- https://help.pyramidanalytics.com/Content/Root/developer/reference/Extensibility/Embedding/embed%20API/Embed%20API%20Objects.htm
+- https://help.pyramidanalytics.com/Content/Root/developer/reference/Extensibility/Embedding/General%20Embed/Embed%20Authentication.htm
+- https://help.pyramidanalytics.com/Content/Root/developer/reference/Extensibility/Embedding/General%20Embed/EmbedCodes.htm
+note: >-
+  Pyramid's client-side surface is the Embed API — a JavaScript client (PyramidEmbedClient) served
+  from the customer's own Pyramid installation, not from a public CDN or npm package, which is why
+  it appears here as a component library rather than in packages/. Embedded analytics is the area
+  Pyramid weighted its 2025 "Newton" release toward (embedded search bar, embedded content
+  formatting, database Xtender for multi-tenant and OEM solutions).
+loader:
+  name: PyramidEmbedClient
+  distribution: served from the customer's Pyramid installation
+  cdn: false
+  package: null
+  note: No pinned version or public URL — the script is loaded from {pyramid-server}. A consumer cannot determine a version from the distribution.
+families:
+- id: embedContent
+  name: Embed Content
+  description: Embeds an individual content item (discovery, presentation, publication) into a host page.
+  objects: [embedOptions, Filter, Hierarchy, Query, Target, ExportingOptions/ExportTypes, EmbedResult/Content]
+  capabilities:
+  - programmatic filter add/remove against the embedded item
+  - hierarchy and query manipulation from the host application
+  - export of embedded content to the documented export types
+- id: embedHub
+  name: Embed Hub
+  description: Embeds a whole Pyramid hub (content portal) rather than a single item.
+  objects: [Hub, HubEmbedOptions, Style]
+- id: embedSearch
+  name: Embed Search
+  description: Embeds Pyramid's natural-language/search bar into a host application. Added as a headline feature in Pyramid 2025 "Newton".
+  objects: [Search AppStyles, Search CustomTheme]
+- id: general
+  name: General / session
+  description: Session and lifecycle helpers on the embed client.
+  objects: [isLoggedIn, isClientLoaded, loginWinAuth]
+- id: customVisual
+  name: Custom Visual API
+  description: A separate JavaScript extensibility surface for drawing new data visualizations wired into Pyramid's data and visualization pipeline.
+  docs: https://help.pyramidanalytics.com/Content/Root/developer/reference/APIs/Custom%20Visual%20API/Custom%20Visual%20API.htm
+- id: workflow
+  name: Workflow API
+  description: HTML + JavaScript forms and logic driving custom workflows through Pyramid's built-in conversation framework.
+  docs: https://help.pyramidanalytics.com/Content/Root/developer/reference/APIs/WorkFlow%20API/Custom%20WorkFlow%20APIs.htm
+authentication:
+  flow: embed login
+  note: >-
+    Embed tokens are minted by /API3/authentication/authenticateUserEmbed* and are designed to
+    operate from a web domain that is NOT the Pyramid domain — the difference from a normal client
+    token.

@@ -1,23 +1,130 @@
 aid: pyramid-analytics
 name: Pyramid Analytics
-description: 'Pyramid Analytics is a company surfaced via the API Evangelist harvest backlog (source:
-  secondary-market) and added to the network as a stub for full-pipeline profiling.'
+description: 'Pyramid Analytics is a decision intelligence software company whose platform
+  unifies data preparation, business analytics and AI-assisted insight generation in a single
+  environment, deployed either onto the customer''s own infrastructure ("Pyramid Deployed") or
+  hosted by Pyramid ("Pyramid Managed"). Its programmable surface is a POST-only REST API — API
+  3.0, documented as 234 methods across authentication, access, content, analytics, dataSources,
+  tasks, notification and themes — together with a JavaScript Embed API for hosting Pyramid
+  content inside third-party applications, Custom Visual and Workflow APIs, an OData feed that
+  turns any Pyramid query into a consumable data source, and Swagger-generated client SDKs for
+  Java, C#, JavaScript/TypeScript, Python and PHP. Because Pyramid runs inside each customer''s
+  own tenancy, the API base URL is the customer''s own Pyramid server rather than a vendor-hosted
+  host, and the SDK packages are distributed through the customer portal rather than public
+  package registries.'
+image: https://www.pyramidanalytics.com/wp-content/uploads/2022/02/pyramid-analytics.jpg
 url: https://raw.githubusercontent.com/api-evangelist/pyramid-analytics/refs/heads/main/apis.yml
 x-type: company
 x-source: harvest:secondary-market
-x-tier: stub
-x-tier-reason: harvest
 specificationVersion: '0.20'
 created: '2026-08-26'
 modified: '2026-08-26'
 tags:
-- Company
-apis: []
+- Analytics
+- Business Intelligence
+- Decision Intelligence
+- Embedded Analytics
+- Data Visualization
+- Data Preparation
+- Enterprise Software
+- Reporting
+apis:
+- aid: pyramid-analytics-rest-api-3
+  name: Pyramid REST API 3.0
+  description: 'Pyramid''s main programmatic surface. All calls are HTTP POST against
+    /API3/<section>/<method> on the customer''s own Pyramid server, carrying a JSON body and a
+    "paToken" security token in the HTTP header. 234 methods are documented across eight sections:
+    authentication, access, content, analytics, dataSources, tasks, notification and themes. REST
+    API access is restricted to administrative users.'
+  humanURL: https://help.pyramidanalytics.com/Content/Root/developer/reference/APIs/REST%20API/APIs%20and%20SDKs.htm
+  baseURL: https://{pyramid-server}/API3/
+  tags:
+  - Analytics
+  - Administration
+  - Content Management
+  - Data Sources
+  properties:
+  - type: Authentication
+    url: authentication/pyramid-analytics-authentication.yml
+  - type: ErrorCatalog
+    url: errors/pyramid-analytics-problem-types.yml
+  - type: Conventions
+    url: conventions/pyramid-analytics-conventions.yml
+  - type: DataModel
+    url: data-model/pyramid-analytics-data-model.yml
+  - type: RateLimits
+    url: rate-limits/pyramid-analytics-rate-limits.yml
+- aid: pyramid-analytics-embed-api
+  name: Pyramid Embed API
+  description: 'A client-side JavaScript API (PyramidEmbedClient) for embedding Pyramid content
+    — hubs, discoveries, presentations, publications and the search bar — into third-party web
+    applications, with its own embed authentication flow, filter/hierarchy/query objects, export
+    options and theming.'
+  humanURL: https://help.pyramidanalytics.com/Content/Root/developer/reference/Extensibility/Embedding/General%20Embed/EmbedAPI_v1_Overview.htm
+  baseURL: https://{pyramid-server}/
+  tags:
+  - Embedded Analytics
+  - JavaScript
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
 - FN: APIs.json
   email: info@apis.io
 common:
+- type: DomainSecurity
+  url: security/pyramid-analytics-domain-security.yml
 - type: Website
+  url: https://www.pyramidanalytics.com/
+- type: DeveloperPortal
+  url: https://help.pyramidanalytics.com/Content/Root/developer/reference/APIs/API%20Overview.htm
+- type: Documentation
+  url: https://help.pyramidanalytics.com/
+- type: APIReference
+  url: https://help.pyramidanalytics.com/Content/Root/developer/reference/APIs/REST%20API/APIs%20and%20SDKs.htm
+- type: GettingStarted
+  url: https://help.pyramidanalytics.com/Content/Root/developer/reference/APIs/REST%20API/Using%20REST.htm
+- type: Support
+  url: https://www.pyramidanalytics.com/company/support/
+- type: HelpCenter
+  url: https://community.pyramidanalytics.com/
+- type: Blog
+  url: https://www.pyramidanalytics.com/resources/blog/
+- type: GitHubOrganization
+  url: https://github.com/Pyramid-Analytics
+- type: Pricing
+  url: https://www.pyramidanalytics.com/decision-intelligence-platform/get-pricing/
+- type: Login
+  url: https://customers.pyramidanalytics.com/
+- type: TermsOfService
+  url: https://www.pyramidanalytics.com/terms-of-use/
+- type: PrivacyPolicy
+  url: https://www.pyramidanalytics.com/privacy-policy/
+- type: Roadmap
+  url: https://help.pyramidanalytics.com/Content/Root/Guides/general/Release%20Framework.htm
+- type: ChangeLog
+  url: changelog/pyramid-analytics-changelog.yml
+- type: Lifecycle
+  url: lifecycle/pyramid-analytics-lifecycle.yml
+- type: Deprecation
+  url: lifecycle/pyramid-analytics-lifecycle.yml
+- type: Packages
+  url: packages/pyramid-analytics-packages.yml
+- type: SDKs
+  url: packages/pyramid-analytics-packages.yml
+- type: Conformance
+  url: conformance/pyramid-analytics-conformance.yml
+- type: LLMsTxt
+  url: llms/pyramid-analytics-llms.txt
+- type: Plans
+  url: plans/pyramid-analytics-plans-pricing.yml
+- type: Webhooks
+  url: asyncapi/pyramid-analytics-webhooks.yml
+- type: Components
+  url: components/pyramid-analytics-components.yml
+- type: SecondaryMarketListing
   url: https://www.hiive.com/securities/pyramid-analytics-stock
+x-enrichment:
+  date: '2026-08-26'
+  status: enriched
+  artifacts_added: 16
+  pass: local-v1

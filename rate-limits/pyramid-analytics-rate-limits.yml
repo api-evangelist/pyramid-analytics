@@ -1,0 +1,25 @@
+generated: '2026-08-26'
+method: searched
+source: https://help.pyramidanalytics.com/Content/Root/developer/reference/APIs/REST%20API/Using%20REST.htm
+limit_count: 0
+note: >-
+  Pyramid documents NO API rate limits. No quota, no window, no burst, and no RateLimit-*,
+  X-RateLimit-* or Retry-After response header appears anywhere in the REST reference or the
+  per-method pages. HTTP 429 "Too Many Requests" is present in Pyramid's published status-code
+  table, but only as part of the complete IANA list it reproduces — the conditions that would
+  produce it are never stated. This is an honest zero rather than an omission, and it is partly
+  structural: Pyramid runs on the customer's own server, so throughput is bounded by that
+  installation's capacity rather than by a vendor-imposed quota.
+  The nearest published constraint is a product-level "Query Limits" setting that caps the rows an
+  analytics query returns; Pyramid warns that copying an OData link "without filters" bypasses it.
+  That is a data-volume guard on a model, not an API rate limit, so it is not counted here.
+headers: []
+limits: []
+related_constraints:
+- name: Query Limits
+  kind: result-set cap
+  scope: per analytics query / model
+  documented_value: null
+  note: Configured per installation; Pyramid publishes the mechanism, not a number.
+  docs: https://help.pyramidanalytics.com/Content/Root/MainClient/CMS/actions/OData%20Feed.htm
+status_code_on_exhaustion: null
