@@ -12,6 +12,17 @@ description: 'Pyramid Analytics is a decision intelligence software company whos
   own tenancy, the API base URL is the customer''s own Pyramid server rather than a vendor-hosted
   host, and the SDK packages are distributed through the customer portal rather than public
   package registries.'
+deliveryModel:
+  model: saas
+  open_source: false
+  commercial: true
+  callable_host: false
+  label: Hosted service · you call their endpoint
+  confidence: medium
+  source:
+  - pricing
+  generated: '2026-08-28'
+  method: derived
 image: https://www.pyramidanalytics.com/wp-content/uploads/2022/02/pyramid-analytics.jpg
 url: https://raw.githubusercontent.com/api-evangelist/pyramid-analytics/refs/heads/main/apis.yml
 x-type: company
