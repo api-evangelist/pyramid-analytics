@@ -1,17 +1,15 @@
 aid: pyramid-analytics
 name: Pyramid Analytics
-description: 'Pyramid Analytics is a decision intelligence software company whose platform
-  unifies data preparation, business analytics and AI-assisted insight generation in a single
-  environment, deployed either onto the customer''s own infrastructure ("Pyramid Deployed") or
-  hosted by Pyramid ("Pyramid Managed"). Its programmable surface is a POST-only REST API — API
-  3.0, documented as 234 methods across authentication, access, content, analytics, dataSources,
-  tasks, notification and themes — together with a JavaScript Embed API for hosting Pyramid
-  content inside third-party applications, Custom Visual and Workflow APIs, an OData feed that
-  turns any Pyramid query into a consumable data source, and Swagger-generated client SDKs for
-  Java, C#, JavaScript/TypeScript, Python and PHP. Because Pyramid runs inside each customer''s
-  own tenancy, the API base URL is the customer''s own Pyramid server rather than a vendor-hosted
-  host, and the SDK packages are distributed through the customer portal rather than public
-  package registries.'
+description: Pyramid Analytics is a decision intelligence software company whose platform unifies data
+  preparation, business analytics and AI-assisted insight generation in a single environment, deployed
+  either onto the customer's own infrastructure ("Pyramid Deployed") or hosted by Pyramid ("Pyramid Managed").
+  Its programmable surface is a POST-only REST API — API 3.0, documented as 234 methods across authentication,
+  access, content, analytics, dataSources, tasks, notification and themes — together with a JavaScript
+  Embed API for hosting Pyramid content inside third-party applications, Custom Visual and Workflow APIs,
+  an OData feed that turns any Pyramid query into a consumable data source, and Swagger-generated client
+  SDKs for Java, C#, JavaScript/TypeScript, Python and PHP. Because Pyramid runs inside each customer's
+  own tenancy, the API base URL is the customer's own Pyramid server rather than a vendor-hosted host,
+  and the SDK packages are distributed through the customer portal rather than public package registries.
 deliveryModel:
   model: saas
   open_source: false
@@ -54,13 +52,12 @@ tags:
 - Enterprise Software
 - Reporting
 apis:
-- aid: pyramid-analytics-rest-api-3
+- aid: pyramid-analytics:pyramid-analytics-rest-api-3
   name: Pyramid REST API 3.0
-  description: 'Pyramid''s main programmatic surface. All calls are HTTP POST against
-    /API3/<section>/<method> on the customer''s own Pyramid server, carrying a JSON body and a
-    "paToken" security token in the HTTP header. 234 methods are documented across eight sections:
-    authentication, access, content, analytics, dataSources, tasks, notification and themes. REST
-    API access is restricted to administrative users.'
+  description: 'Pyramid''s main programmatic surface. All calls are HTTP POST against /API3/<section>/<method>
+    on the customer''s own Pyramid server, carrying a JSON body and a "paToken" security token in the
+    HTTP header. 234 methods are documented across eight sections: authentication, access, content, analytics,
+    dataSources, tasks, notification and themes. REST API access is restricted to administrative users.'
   humanURL: https://help.pyramidanalytics.com/Content/Root/developer/reference/APIs/REST%20API/APIs%20and%20SDKs.htm
   baseURL: https://{pyramid-server}/API3/
   tags:
@@ -79,12 +76,11 @@ apis:
     url: data-model/pyramid-analytics-data-model.yml
   - type: RateLimits
     url: rate-limits/pyramid-analytics-rate-limits.yml
-- aid: pyramid-analytics-embed-api
+- aid: pyramid-analytics:pyramid-analytics-embed-api
   name: Pyramid Embed API
-  description: 'A client-side JavaScript API (PyramidEmbedClient) for embedding Pyramid content
-    — hubs, discoveries, presentations, publications and the search bar — into third-party web
-    applications, with its own embed authentication flow, filter/hierarchy/query objects, export
-    options and theming.'
+  description: A client-side JavaScript API (PyramidEmbedClient) for embedding Pyramid content — hubs,
+    discoveries, presentations, publications and the search bar — into third-party web applications, with
+    its own embed authentication flow, filter/hierarchy/query objects, export options and theming.
   humanURL: https://help.pyramidanalytics.com/Content/Root/developer/reference/Extensibility/Embedding/General%20Embed/EmbedAPI_v1_Overview.htm
   baseURL: https://{pyramid-server}/
   tags:
