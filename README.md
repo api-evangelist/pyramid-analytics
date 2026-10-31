@@ -64,5 +64,120 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-Pyramid Analytics is a company surfaced via the API Evangelist harvest backlog (source: secondary-market) and added to the network as a stub for full-pipeline profiling.
-- https://www.hiive.com/securities/pyramid-analytics-stock
+Pyramid Analytics is a decision intelligence software company whose platform unifies data preparation, business analytics and AI-assisted insight generation in a single environment, deployed either onto the customer's own infrastructure ("Pyramid Deployed") or hosted by Pyramid ("Pyramid Managed"). Its programmable surface is a POST-only REST API — API 3.0, documented as 234 methods across authentication, access, content, analytics, dataSources, tasks, notification and themes — together with a JavaScript Embed API for hosting Pyramid content inside third-party applications, Custom Visual and Workflow APIs, an OData feed that turns any Pyramid query into a consumable data source, and Swagger-generated client SDKs for Java, C#, JavaScript/TypeScript, Python and PHP. Because Pyramid runs inside each customer's own tenancy, the API base URL is the customer's own Pyramid server rather than a vendor-hosted host, and the SDK packages are distributed through the customer portal rather than public package registries.
+
+**Areas:** Analytics · Business Intelligence · Decision Intelligence · Embedded Analytics · Data Visualization · Data Preparation · Enterprise Software · Reporting
+
+## Pyramid Analytics on APIs.io
+
+Everything profiled for Pyramid Analytics is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/pyramid-analytics/](https://apis.io/providers/pyramid-analytics/)** — or go straight to one of the APIs or properties below.
+
+### APIs (2)
+
+- [Pyramid REST API 3.0](https://apis.io/apis/pyramid-analytics/pyramid-analytics-rest-api-3/) — Pyramid's main programmatic surface. All calls are HTTP POST against /API3/<section>/<method> on the customer's own Pyramid server, carrying a JSON body and…
+- [Pyramid Embed API](https://apis.io/apis/pyramid-analytics/pyramid-analytics-embed-api/) — A client-side JavaScript API (PyramidEmbedClient) for embedding Pyramid content — hubs, discoveries, presentations, publications and the search bar — into…
+
+### Published properties
+
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
+
+#### AsyncAPI (1)
+
+Event-driven and webhook contracts.
+
+- [Pyramid Analytics Webhooks](https://apis.io/asyncapis/pyramid-analytics/pyramid-analytics-webhooks/)
+
+#### MCP servers (1)
+
+Model Context Protocol servers that expose the API to agents.
+
+- [pyramid-analytics-mcp.yml](https://apis.io/servers/pyramid-analytics/pyramid-analytics-mcp-yml/)
+
+#### Security (2)
+
+Authentication, trust centre, and vulnerability disclosure.
+
+- [Pyramid Analytics Authentication](https://apis.io/security/pyramid-analytics/pyramid-analytics-authentication/)
+- [Pyramid Analytics Domain Security](https://apis.io/security/pyramid-analytics/pyramid-analytics-domain-security/)
+
+#### Plans and pricing (1)
+
+Published plans, tiers and prices.
+
+- [Pyramid Analytics Plans Pricing](https://apis.io/plans/pyramid-analytics/pyramid-analytics-plans-pricing/)
+
+#### Rate limits (1)
+
+Published request limits.
+
+- [Pyramid Analytics Rate Limits](https://apis.io/rate-limits/pyramid-analytics/pyramid-analytics-rate-limits/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
+
+- [Website](https://www.pyramidanalytics.com/)
+- [Documentation](https://help.pyramidanalytics.com/)
+- [Getting started](https://help.pyramidanalytics.com/Content/Root/developer/reference/APIs/REST%20API/Using%20REST.htm)
+- [API reference](https://help.pyramidanalytics.com/Content/Root/developer/reference/APIs/REST%20API/APIs%20and%20SDKs.htm)
+- [Pricing](https://www.pyramidanalytics.com/decision-intelligence-platform/get-pricing/)
+- [Support](https://www.pyramidanalytics.com/company/support/)
+- [Blog](https://www.pyramidanalytics.com/resources/blog/)
+- [Terms of service](https://www.pyramidanalytics.com/terms-of-use/)
+- [Privacy policy](https://www.pyramidanalytics.com/privacy-policy/)
+- [GitHub](https://github.com/Pyramid-Analytics)
+
+## API Evangelist rating
+
+**Kin Score 46.9** — developing · rubric 0.25.0 · scored 2026-10-23
+
+| Facet | Score |
+|---|---|
+| Discoverability | 66.1 |
+| Contract quality | 44.2 |
+| Contract governance | 18.2 |
+| Operational transparency | 39.5 |
+| Developer ergonomics | 64.3 |
+| Access clarity | 38.2 |
+
+**Agent readiness 25.2** — agent-aware
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | — |
+| Reversibility Documented | — |
+| MCP Server | — |
+| Auth Clarity | bearer (partial credit) |
+| Idempotency | — |
+| Error Semantics | documented (partial credit) |
+| OpenAPI Examples | — |
+| Rate Limit Signal | documented (partial credit) |
+| Event Surface Described | yes |
+| Agent Skills | — |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+| Pagination Ratio | na |
+| Operation Distinctiveness | na |
+
+**Regulatory alignment 24.5** — Horizontal (data, software, accessibility, platform)
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/pyramid-analytics/](https://apis.io/providers/pyramid-analytics/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Pyramid Analytics: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/pyramid-analytics/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
